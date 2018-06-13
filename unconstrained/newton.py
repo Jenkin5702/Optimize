@@ -1,0 +1,18 @@
+# coding=utf-8
+from linear_search.wolfe import *
+from linear_search.Function import *
+from numpy import *
+
+
+# (带步长因子的)牛顿法
+def newton(f, start):
+    fun = Function(f)
+    x = array(start)
+    g = fun.grad(x)
+    while fun.norm(x) > 0.01:
+        G = fun.hesse(x)
+        d = (-dot(linalg.inv(G), g)).tolist()[0]
+        alpha = wolfe(f, x, d)
+        x = x + alpha * array(d)
+        g = fun.grad(x)
+    return x
