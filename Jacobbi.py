@@ -20,11 +20,3 @@ def Jacobbi_val(_a,val):
         a = Function(_a[i]).grad(val)
         A = A + [a]
     return array(A)
-
-# def a11(x):
-#     return x[0]+x[1]**2-x[2]
-#
-# def a12(x):
-#     return x[0]**2-x[1]+x[2]**2
-#
-# print(Jacobbi_val([a11,a12],[3,1,2]))

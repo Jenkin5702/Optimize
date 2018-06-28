@@ -24,6 +24,7 @@ def barrier(f, a2, x0):
         p_mu = p(mu)
         Q = Function(p_mu)
         x = descent(p_mu, x.tolist())
+        print(x)
         nr = Q.norm(x)
     return x
 

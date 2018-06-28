@@ -30,10 +30,10 @@ def sequence(_f, _x, a2):
         return r
 
     def fi(mu):
-        def _fi(x, mu):
+        def _fi(x):
             r = _f(x)
             for a in a2:
-                r += abs(a(x))
+                r += abs(a(x))/mu
             return r
 
         return _fi
@@ -41,7 +41,8 @@ def sequence(_f, _x, a2):
     f = Function(_f)
     l = Function(_l)
 
-    while True:
+    k=0
+    while k<30:
         A = Jacobbi_val(a2, x)
 
         g = f.grad(x)
@@ -53,13 +54,15 @@ def sequence(_f, _x, a2):
             a = a2[i]
             c[i] = a(x)
 
-        dx = equation_constraint(G, g, A, c)
-        mu = 2
+        dx = equation_constraint(G, g, A.T, c)
+        mu = 0.5
         fi_x = fi(mu)
-        if linalg.norm(c) + linalg.norm(g - dot(A.T, lamb)) < 0.01:
+        if linalg.norm(c) + linalg.norm(g - dot(A, lamb)) < 0.01 or k==29:
             return x
-        alpha = wolfe(fi_x, x, dx)
+        alpha = wolfe(fi_x, x, dx.tolist())
         x = x + alpha * dx
+        print(x)
+        k=k+1
 
 
 def f(val):
@@ -67,7 +70,7 @@ def f(val):
 
 
 def a1(val):
-    return val[0] ** 2 + val[1] ** 2
+    return val[0] ** 2 + val[1] ** 2-1
 
 
-sequence(f, [-0.7, -0.7], [a1])
+print(sequence(f, [-0.7, -0.7], [a1]))

@@ -24,6 +24,7 @@ def punish(f, a1, a2, x0):
         q_mu = q(mu)
         Q = Function(q_mu)
         x = simu_newton(q_mu, x.tolist())
+        print (x)
         if Q.norm(x) < eps:
             return x
         else:
@@ -38,4 +39,4 @@ def a11(val):
     return val[0]+val[1]-1
 
 
-print(punish(f, [a11], [], [4., 5.]))
+print(punish(f, [a11], [], [4., -5.]))

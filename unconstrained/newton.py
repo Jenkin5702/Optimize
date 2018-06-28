@@ -15,9 +15,3 @@ def newton(f, start):
         x = x + alpha * array(d)
         g = fun.grad(x)
     return x
-
-
-def f(val):
-    return 100*(val[0]**2-val[1])**2+(val[0]-1)**2
-
-print(newton(f,[1,2]))
