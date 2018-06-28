@@ -10,7 +10,7 @@ def solve(_A, _b):
     for i in range(n, m):
         v = zeros(m)
         v[i] = 1
-        vstack((A, v))
+        A = vstack((A, v))
     return dot(linalg.inv(A), array(_b))
 
 
@@ -19,14 +19,14 @@ def sequence(_f, _x, a2):
     m = x.size
     X = range(0, m)
     n = size(a2)
-    N = range(m, m + n)
-    A = Jacobbi(a2, m)
+    N = range(0, n)
 
     def _l(val):
-        r = _f(val[X])
+        value = array(val)[X]
+        r = _f(value)
         for i in N:
             a = a2[i]
-            r -= val[i] * a(val[X])
+            r -= val[i] * a(value)
         return r
 
     def fi(mu):
@@ -46,9 +46,9 @@ def sequence(_f, _x, a2):
 
         g = f.grad(x)
         lamb = solve(A, g)
-        G = l.hesse(concatenate([x, lamb]))[X, :][:, X]
+        G = l.hesse(concatenate([x, lamb]).tolist())[X, :][:, X]
 
-        c = x
+        c = range(0, n)
         for i in range(0, n):
             a = a2[i]
             c[i] = a(x)
@@ -60,3 +60,14 @@ def sequence(_f, _x, a2):
             return x
         alpha = wolfe(fi_x, x, dx)
         x = x + alpha * dx
+
+
+def f(val):
+    return 2 * val[0] + 3 * val[1]
+
+
+def a1(val):
+    return val[0] ** 2 + val[1] ** 2
+
+
+sequence(f, [-0.7, -0.7], [a1])
