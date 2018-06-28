@@ -1,5 +1,6 @@
-from linear_search.Function import *
 from numpy import *
+
+from Function import *
 
 
 def goldstein(f, val, d):

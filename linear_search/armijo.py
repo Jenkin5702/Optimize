@@ -1,5 +1,6 @@
-from linear_search.Function import *
 from numpy import *
+
+from Function import *
 
 
 def armijo(_f, val, d):

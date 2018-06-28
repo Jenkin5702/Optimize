@@ -1,8 +1,8 @@
 # coding=utf-8
 # 再开始共轭梯度法
-from linear_search.Function import *
-from linear_search.wolfe import *
 import numpy as np
+
+from linear_search.wolfe import *
 
 
 def restart_conjugate(_f, _x, n):
@@ -32,8 +32,3 @@ def restart_conjugate(_f, _x, n):
                 if np.dot(mat(d),g1.T)>0:
                     break
     return x
-
-def func(xval):
-    return (xval[0]-1)**2+2*(xval[1]+1)**2
-
-print(restart_conjugate(func,[2,1],10))

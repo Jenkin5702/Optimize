@@ -1,13 +1,13 @@
 # coding=utf-8
 # FR-CG共轭梯度法
-from linear_search.Function import *
-from linear_search.wolfe import *
 import numpy as np
+
+from linear_search.wolfe import *
 
 
 def conjugate(_f, _x):
     fun = Function(_f)
-    x = array(_x)
+    x = np.array(_x)
     d = -fun.grad(x)
     while fun.norm(x) > 0.01:
         alpha = wolfe(_f, x, d)

@@ -1,5 +1,6 @@
-from linear_search.Function import *
 from numpy import *
+
+from Function import *
 
 
 def wolfe(_f, val, d):
@@ -17,8 +18,11 @@ def wolfe(_f, val, d):
     dfi1 = dot(g,array(d).T)
     dfi0 = fi.diff(0)
     alpha = 1.0
-
+    i=0
     while True:
+        i=i+1
+        if i>30:
+            return alpha
         fi_=fi.value(alpha)
         if fi_-fi1>1/3*alpha*dfi1:
             alpha_=a+(alpha-a)/2/(1+(fi1-fi_)/(alpha-a)/dfi1)

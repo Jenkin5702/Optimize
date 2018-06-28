@@ -27,7 +27,7 @@ class Function:
         return a
 
     def part_2(self, x_index, y_index, val):
-        return self.__diff_(x_index).__diff_(y_index).value(val)
+        return self.diffun(x_index).diffun(y_index).value(val)
 
     def diff(self, val):
         a = self.fun(val)
@@ -52,7 +52,7 @@ class Function:
             g[i] = self.part(i, val)
         return array(g)
 
-    def __diff_(self, index):
+    def diffun(self, index):
         def diff_f(vals):
             vals_ = list(vals)
             vals_[index] = vals_[index] + 10 ** (-6)
